@@ -1,0 +1,17 @@
+section{
+    display: flex;
+    justify-content: space-between;
+    background-color: lightgray;
+    padding: 10px 25px;
+}
+
+#menu{
+    display: flex;
+}
+
+#menu div{
+    padding: 5px;
+    margin: 0 5px;
+    background-color: white;
+    border-radius: 5px;
+}

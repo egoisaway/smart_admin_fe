@@ -1,0 +1,14 @@
+section{
+    display: flex;
+    justify-content: space-between;
+    padding: 25px;
+    background-color: lightgray;
+}
+
+#data div:nth-child(3){
+    margin-top: 25px;
+}
+
+#sitemap{
+    color: gray;
+}
