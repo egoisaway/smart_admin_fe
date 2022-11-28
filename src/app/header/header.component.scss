@@ -10,13 +10,40 @@ section{
     z-index: 1;
 }
 
+a{
+    display: flex;
+    width: auto;
+}
+
 #logo{
     background-color: black;
     padding: 7px;
+    width: 30px;
+    height: 30px;
     border-radius: 100%;
+    text-align: center;
+    display: flex;
+    align-items: center;
+    transition: all .2s;
 }
 img{
+    transition: all .2s;
     height: 30px;
+}
+#logo:hover{
+    width: auto;
+    border-radius: 10px;
+}
+#logo:hover img{
+    transform: rotate(90deg);
+}
+#logo:hover #hometext{
+    color: white;
+}
+
+#hometext{
+    margin-left: 20px;
+    color: transparent;
 }
 
 #menu{
@@ -31,7 +58,7 @@ img{
     color: white;
     font-weight: bold;
     line-height: 250%;
-    transition: all .1s;
+    transition: all .2s;
 }
 
 #menu div:hover{
