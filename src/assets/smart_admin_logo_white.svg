@@ -1,0 +1,107 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!-- Created with Inkscape (http://www.inkscape.org/) -->
+
+<svg
+   width="218.39mm"
+   height="66.739998mm"
+   viewBox="0 0 218.39 66.739998"
+   version="1.1"
+   id="svg5"
+   inkscape:version="1.2.1 (9c6d41e410, 2022-07-14)"
+   sodipodi:docname="smart_admin_logo_white.svg"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:svg="http://www.w3.org/2000/svg">
+  <sodipodi:namedview
+     id="namedview7"
+     pagecolor="#505050"
+     bordercolor="#eeeeee"
+     borderopacity="1"
+     inkscape:showpageshadow="0"
+     inkscape:pageopacity="0"
+     inkscape:pagecheckerboard="0"
+     inkscape:deskcolor="#505050"
+     inkscape:document-units="mm"
+     showgrid="false"
+     inkscape:zoom="1.4142136"
+     inkscape:cx="401.28309"
+     inkscape:cy="142.12846"
+     inkscape:window-width="1920"
+     inkscape:window-height="1009"
+     inkscape:window-x="-8"
+     inkscape:window-y="-8"
+     inkscape:window-maximized="1"
+     inkscape:current-layer="layer1" />
+  <defs
+     id="defs2" />
+  <g
+     inkscape:label="Camada 1"
+     inkscape:groupmode="layer"
+     id="layer1">
+    <g
+       id="g1032-4"
+       transform="translate(72.093052,-73.222521)"
+       inkscape:export-filename="smart_admin_logo_small.png"
+       inkscape:export-xdpi="96"
+       inkscape:export-ydpi="96">
+      <g
+         id="g1261">
+        <rect
+           style="fill:#000000;stroke-width:0.275518"
+           id="rect329-7"
+           width="11.106153"
+           height="72.259071"
+           x="-123.46532"
+           y="131.92485"
+           transform="matrix(1,0,-0.38672669,0.92219438,0,0)" />
+        <rect
+           style="fill:#da291c;fill-opacity:1;stroke-width:0.275518"
+           id="rect329-0-9"
+           width="11.106153"
+           height="72.259071"
+           x="214.39575"
+           y="131.92476"
+           transform="matrix(-1,0,0.38672669,0.92219438,0,0)" />
+      </g>
+    </g>
+    <text
+       xml:space="preserve"
+       style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:35.6974px;font-family:'Yu Gothic';-inkscape-font-specification:'Yu Gothic';fill:#ffffff;stroke-width:2.97479;fill-opacity:1"
+       x="-1.9815872"
+       y="27.263752"
+       id="text113"><tspan
+         sodipodi:role="line"
+         id="tspan111"
+         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-family:'Yu Gothic';-inkscape-font-specification:'Yu Gothic';stroke-width:2.97479;fill:#ffffff;fill-opacity:1"
+         x="-1.9815872"
+         y="27.263752">Sm   rt</tspan></text>
+    <rect
+       style="fill:#ffffff;stroke-width:0.275518;fill-opacity:1"
+       id="rect329"
+       width="11.106153"
+       height="72.259071"
+       x="61.679211"
+       y="0.095989645"
+       transform="matrix(1,0,-0.38672669,0.92219438,0,0)" />
+    <rect
+       style="fill:#da291c;fill-opacity:1;stroke-width:0.275518"
+       id="rect329-0"
+       width="11.106153"
+       height="72.259071"
+       x="-72.712257"
+       y="0.095905721"
+       transform="matrix(-1,0,0.38672669,0.92219438,0,0)" />
+    <text
+       xml:space="preserve"
+       style="font-size:42.1602px;fill:#ffffff;stroke-width:3.51334;fill-opacity:1"
+       x="93.964386"
+       y="66.249168"
+       id="text167"><tspan
+         sodipodi:role="line"
+         id="tspan165"
+         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-family:'Segoe Script';-inkscape-font-specification:'Segoe Script';stroke-width:3.51334;fill:#ffffff;fill-opacity:1"
+         x="93.964386"
+         y="66.249168">dmin</tspan></text>
+  </g>
+</svg>

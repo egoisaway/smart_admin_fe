@@ -1,8 +1,22 @@
 section{
+    position: sticky;
+    top: 0;
     display: flex;
     justify-content: space-between;
-    background-color: lightgray;
-    padding: 10px 25px;
+    background-color: rgba($color: white, $alpha: 0.7);
+    box-shadow: 0 0 10px 0 grey;
+    backdrop-filter: blur(10px);
+    padding: 10px 35px;
+    z-index: 1;
+}
+
+#logo{
+    background-color: black;
+    padding: 7px;
+    border-radius: 100%;
+}
+img{
+    height: 30px;
 }
 
 #menu{
@@ -10,8 +24,16 @@ section{
 }
 
 #menu div{
-    padding: 5px;
+    padding: 5px 10px;
     margin: 0 5px;
-    background-color: white;
+    background-color: #da291c;
     border-radius: 5px;
+    color: white;
+    font-weight: bold;
+    line-height: 250%;
+    transition: all .1s;
+}
+
+#menu div:hover{
+    background-color: black;
 }
