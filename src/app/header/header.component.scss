@@ -24,7 +24,7 @@ a{
     text-align: center;
     display: flex;
     align-items: center;
-    transition: all .2s;
+    transition: all .1s;
 }
 img{
     transition: all .2s;
@@ -51,14 +51,12 @@ img{
 }
 
 #menu div{
-    padding: 5px 10px;
-    margin: 0 5px;
+    padding: 5px 25px;
     background-color: #da291c;
-    border-radius: 5px;
     color: white;
     font-weight: bold;
     line-height: 250%;
-    transition: all .2s;
+    transition: all .1s;
 }
 
 #menu div:hover{

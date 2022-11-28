@@ -6,5 +6,5 @@ import { Component } from '@angular/core';
   styleUrls: ['./wallet.component.scss']
 })
 export class WalletComponent {
-
+  title = "Consultar Carteira"
 }

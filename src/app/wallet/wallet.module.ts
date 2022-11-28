@@ -4,6 +4,7 @@ import { WalletComponent } from './wallet.component';
 
 
 
+
 @NgModule({
   declarations: [
     WalletComponent
