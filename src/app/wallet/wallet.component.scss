@@ -1,6 +1,6 @@
 section{
     width: auto;
-    height: 90vh;
+    height: auto;
     padding: 50px 5%;
     background-color: rgba($color: #000000, $alpha: 0.7);
     backdrop-filter: blur(10px);
@@ -60,3 +60,29 @@ section button:hover{
     color: white;
     background-color: #da291c;
 }
+
+#results{
+    width: 100%;
+    height: 80vh;
+    overflow-y: scroll;
+    padding: 50px 0;
+    background-color: transparent;
+    backdrop-filter: none;
+}
+
+.client{
+    background-color: white;
+    display: grid;
+    grid-template-columns: repeat(5, 1fr);
+    grid-template-rows: 1fr;
+    grid-column-gap: 0px;
+    grid-row-gap: 0px;
+    padding: 25px;
+    margin: 10px 0;
+}
+.client div{text-align: center;}
+.client div:nth-child(1) { grid-area: 1 / 1 / 2 / 2; }
+.client div:nth-child(2) { grid-area: 1 / 2 / 2 / 3; }
+.client div:nth-child(3) { grid-area: 1 / 3 / 2 / 4; }
+.client div:nth-child(4) { grid-area: 1 / 4 / 2 / 5; }
+.client div:nth-child(5) { grid-area: 1 / 5 / 2 / 6; }
