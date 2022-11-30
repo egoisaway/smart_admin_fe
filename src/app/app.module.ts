@@ -7,9 +7,9 @@ import { HeaderComponent } from './header/header.component';
 import { FooterComponent } from './footer/footer.component';
 
 import { HttpClientModule } from '@angular/common/http';
-import { CommonModule } from '@angular/common';
 import { WalletModule } from './wallet/wallet.module';
 import { FormsModule } from '@angular/forms';
+import { ProposalsModule } from './proposals/proposals.module';
 
 @NgModule({
   declarations: [
@@ -22,7 +22,8 @@ import { FormsModule } from '@angular/forms';
     HttpClientModule,
     AppRoutingModule,
     FormsModule,
-    WalletModule
+    WalletModule,
+    ProposalsModule
   ],
   providers: [],
   bootstrap: [AppComponent]

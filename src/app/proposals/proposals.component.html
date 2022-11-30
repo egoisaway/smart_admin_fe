@@ -2,35 +2,40 @@
     <div id="pannels">
         <div id="title">{{title}}</div>
     </div>
-    <form>
-        <div>
-            <label for="cnpj">CNPJ</label>
-            <input id="cnpj" type="text">
-        </div>
-        <div>
-            <label for="name">Razão Social</label>
-            <input id="name" type="text">
-        </div>
-        <div>
-            <label for="city">Cidade</label>
-            <input id="city" type="text">
-        </div>
-        <div>
-            <label for="uf">UF</label>
-            <select id="uf">
-                <option *ngFor="let state of states">{{state.acronym}}</option>
-            </select>
-        </div>
-        <div>
-            <label for="renovation">Data da Renovação</label>
-            <input id="renovation" type="date">
-        </div>
-    </form>
-    <button>Consultar</button>
 
-    <section id="results">
-        <div *ngFor="let sale of sales" class="client">
-            <div>{{sale}}</div>
+    <section id="plans-generator">
+        <div id="plans">
+            <div class="subtitle">Planos Atuais</div>
+            <div class="plan">
+                <div>Plano</div>
+                <div>Preço</div>
+                <div>Ações</div>
+            </div>
+            <div *ngFor="let plan of plans" class="plan">
+                <div>{{plan.offer}}</div>
+                <div>R$ {{plan.value}}</div>
+                <div>
+                    <span>A</span>
+                    <span>B</span>
+                </div>
+            </div>
+        </div>
+
+        <div id="generator">
+            <div class="subtitle">Gerador de Propostas</div>
+            <div class="linetitle">
+                <div>Linha</div>
+                <div>Plano Atual</div>
+                <div>Preço Atual</div>
+                <div>Plano Renovado</div>
+                <div>Preço Renovado</div>
+            </div>
+            <div class="total">
+                <div>Total Atual:</div>
+                <div>-</div>
+                <div>Total Renovado:</div>
+                <div>-</div>
+            </div>
         </div>
     </section>
 </section>

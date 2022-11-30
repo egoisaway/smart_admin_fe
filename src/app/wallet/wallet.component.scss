@@ -100,4 +100,6 @@ section button:hover{
 .client div:nth-child(4) { grid-area: 1 / 4 / 2 / 5; }
 .client div:nth-child(5) { grid-area: 1 / 5 / 2 / 6; }
 .client div:nth-child(5) { grid-area: 1 / 6 / 2 / 7; border-right: none; }
-
+.client:not(:first-child):hover{
+    background-color: lightgray;
+}
