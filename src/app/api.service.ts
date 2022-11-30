@@ -8,7 +8,7 @@ export class ApiService {
 
   constructor(private httpClient:HttpClient) { }
 
-  api = "http://localhost:3000"
+  api = "http://192.168.0.132:3000"
 
   public getAll(route:string){
     return this.httpClient.get<any>(`${this.api}/${route}`)
@@ -24,5 +24,12 @@ export class ApiService {
       err => console.log('HTTP Error', err),
       () => console.log('HTTP request completed.')
     )
+  }
+
+  public getClientsFull(){
+    return this.httpClient.get<any>(`${this.api}/clients/full`)
+  }
+  public find(route:string,data:[]){
+    return this.httpClient.post(`${this.api}/${route}`, data)
   }
 }

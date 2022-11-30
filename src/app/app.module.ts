@@ -9,6 +9,7 @@ import { FooterComponent } from './footer/footer.component';
 import { HttpClientModule } from '@angular/common/http';
 import { CommonModule } from '@angular/common';
 import { WalletModule } from './wallet/wallet.module';
+import { FormsModule } from '@angular/forms';
 
 @NgModule({
   declarations: [
@@ -20,6 +21,7 @@ import { WalletModule } from './wallet/wallet.module';
     BrowserModule,
     HttpClientModule,
     AppRoutingModule,
+    FormsModule,
     WalletModule
   ],
   providers: [],

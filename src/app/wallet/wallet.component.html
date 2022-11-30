@@ -9,35 +9,49 @@
     <form>
         <div>
             <label for="cnpj">CNPJ</label>
-            <input id="cnpj" type="text">
+            <input id="cnpj" type="text" #cnpj>
         </div>
         <div>
             <label for="name">Razão Social</label>
-            <input id="name" type="text">
+            <input id="name" type="text" #name>
         </div>
         <div>
             <label for="city">Cidade</label>
-            <input id="city" type="text">
+            <input id="city" type="text" #city>
         </div>
         <div>
             <label for="uf">UF</label>
-            <select id="uf">
+            <select id="uf" #uf>
                 <option *ngFor="let state of states">{{state.acronym}}</option>
             </select>
         </div>
         <div>
-            <label for="renovation">Data da Renovação</label>
-            <input id="renovation" type="date">
+            <label for="renovable">Apto a Renovar</label>
+            <input id="renovable" type="checkbox" #renovable>
         </div>
+        <!-- <div>
+            <label for="renovation">Data da Renovação</label>
+            <input id="renovation" type="date" #date>
+        </div> -->
     </form>
-    <button (click)="getData()" subm>Consultar</button>
+    <button (click)="find({where:{cnpj:cnpj.value,name:name.value,city:city.value,state:uf.value,can_renovate:renovable.checked}})">Consultar</button>
 
     <section id="results">
-        <div *ngFor="let row of data" class="client">
+        <div class="client">
+            <div>CNPJ</div>
+            <div>Razão Social</div>
+            <div>UF</div>
+            <div>Município</div>
+            <div>Apto a Renovar?</div>
+            <div>Tempo restante para renovar</div>
+        </div>
+        <div *ngFor="let row of data.rows" class="client">
             <div>{{row.cnpj}}</div>
             <div>{{row.name}}</div>
-            <div>{{row.city_id}}</div>
-            <div>{{row.state_id}}</div>
+            <div>{{row.state}}</div>
+            <div>{{row.city}}</div>
+            <div>{{row.can_renovate}}</div>
+            <div>{{row.remaining_to_renovate}}</div>
         </div>
     </section>
 </section>

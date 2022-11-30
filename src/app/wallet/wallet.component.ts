@@ -20,20 +20,29 @@ export class WalletComponent {
   getStates(){
     this.apiService.getAll("states").subscribe(data=>this.states=data.rows)
   }
-  getData(){
-    this.apiService.getAll("clients").subscribe(
+
+  getClientsFull(){
+    this.apiService.getClientsFull()
+    .subscribe(
       data=>{
         this.data=data.rows
         console.log(this.data)
-        // this.getCity(this.data.city_id)
       })
   }
 
-  // getCity(id:any){
-  //   this.apiService.get("cities","id:"+id).subscribe(data=>{console.log(data)})
-  // }
+  find(params:any){
+    if(params.where.cnpj=="") delete params.where.cnpj
+    if(params.where.name=="") delete params.where.name
+    if(params.where.city=="") delete params.where.city
+    if(params.where.state=="") delete params.where.state
+    if(params.where.can_renovate==false) delete params.where.can_renovate
+    console.log(params)
 
-  log(data:any){
-    console.log(data)
+    this.apiService.find("clients/find",params)
+    .subscribe(
+      res=>this.data=res,
+      err=>console.log('HTTP Error', err),
+      ()=>console.log('HTTP request completed.')
+      )
   }
 }
