@@ -10,7 +10,7 @@ const routes: Routes = [
   { path: '', component: HomeComponent },
   { path: 'carteira', component: WalletComponent },
   { path: 'vendas', component: SalesComponent },
-  { path: 'propostas', component: ProposalsComponent },
+  { path: 'propostas/:cnpj', component: ProposalsComponent },
   { path: 'relatorios', component: ReportsComponent }
 ];
 

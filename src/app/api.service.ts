@@ -29,7 +29,10 @@ export class ApiService {
   public getClientsFull(){
     return this.httpClient.get<any>(`${this.api}/clients/full`)
   }
-  public find(route:string,data:[]){
-    return this.httpClient.post(`${this.api}/${route}`, data)
+  public find(route:string,data:any){
+    let params:any = []
+    params['where'] = data
+    params = Object.assign({},params)
+    return this.httpClient.post(`${this.api}/${route}`, params)
   }
 }

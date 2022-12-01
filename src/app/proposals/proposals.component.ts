@@ -1,4 +1,5 @@
 import { ChangeDetectorRef, Component } from '@angular/core';
+import { ActivatedRoute } from '@angular/router';
 import { ApiService } from '../api.service';
 
 @Component({
@@ -10,11 +11,13 @@ export class ProposalsComponent {
   title="Propostas"
   plans: Array<any> = []
   lines: Array<any> = []
+  client:any
 
-  constructor(private apiService:ApiService, private changeDetection: ChangeDetectorRef){}
+  constructor(private apiService:ApiService, private route:ActivatedRoute){}
 
   ngOnInit(){
     this.getPlans()
+    this.find('clients/find', this.route.snapshot.params)
   }
 
   getPlans(){
@@ -52,5 +55,9 @@ export class ProposalsComponent {
     })
     target.value = price
     this.updatePrice(which)
+  }
+
+  find(route:any,params:any){
+    this.apiService.find(route,params).subscribe((res:any)=>{this.client=res.rows[0]})
   }
 }

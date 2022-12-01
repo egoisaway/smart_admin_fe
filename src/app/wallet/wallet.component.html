@@ -13,7 +13,7 @@
         </div>
         <div>
             <label for="name">Razão Social</label>
-            <input id="name" type="text" #name>
+            <input id="name" type="text" list="client-list" #name>
         </div>
         <div>
             <label for="city">Cidade</label>
@@ -34,7 +34,7 @@
             <input id="renovation" type="date" #date>
         </div> -->
     </form>
-    <button (click)="find({where:{cnpj:cnpj.value,name:name.value,city:city.value,state:uf.value,can_renovate:renovable.checked}})">Consultar</button>
+    <button (click)="find('clients/find',{cnpj:cnpj.value,name:name.value,city:city.value,state:uf.value,can_renovate:renovable.checked})">Consultar</button>
 
     <section id="results">
         <div class="client">
@@ -45,13 +45,36 @@
             <div>Apto a Renovar?</div>
             <div>Tempo restante para renovar</div>
         </div>
-        <div *ngFor="let row of data.rows" class="client">
-            <div>{{row.cnpj}}</div>
-            <div>{{row.name}}</div>
-            <div>{{row.state}}</div>
-            <div>{{row.city}}</div>
-            <div>{{row.can_renovate}}</div>
-            <div>{{row.remaining_to_renovate}}</div>
+        <div *ngFor="let result of results" class="client">
+            <div #cnpj>{{result.cnpj}}</div>
+            <div>{{result.name}}</div>
+            <div>{{result.state}}</div>
+            <div>{{result.city}}</div>
+            <div>{{result.can_renovate}}</div>
+            <div>{{result.remaining_to_renovate}} {{result.remaining_to_renovate==1? 'mês' : 'meses'}}</div>
+            <span (click)="show(actions)">➕</span>
+            <div class="actions hidden" #actions>
+                <a href="/propostas/{{result.cnpj}}"><div class="proposals">📝</div></a>
+                <div class="acesses" (click)="show(access); findAccess({client_id:accessId.innerHTML})">🗝️ <span class="hidden" #accessId>{{result.id}}</span></div>
+                <div class="lines" >📱</div>
+                <div class="sales" >💸</div>
+            </div>
         </div>
     </section>
 </section>
+<datalist id="client-list">
+    <option *ngFor="let row of data" value="{{row.name}}"></option>
+</datalist>
+
+<div class="accessbox hidden" #access>
+    <div class="access-title">
+        <div>Acessos</div>
+        <div (click)="show(access)" class="closer">❌</div>
+    </div>
+    <div *ngIf="!currentAccess.length" class="access">Nenhum acesso registrado.</div>
+    <div class="access" *ngFor="let access of currentAccess">
+        <div>{{access.platform_name}}</div>
+        <div>{{access.login}}</div>
+        <div>{{access.password}}</div>
+    </div>
+</div>

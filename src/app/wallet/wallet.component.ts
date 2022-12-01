@@ -8,13 +8,16 @@ import { ApiService } from '../api.service';
 })
 export class WalletComponent {
   title = "Consultar Carteira"
-  data:any
-  states:any
+  data:any = []
+  results:any = []
+  states:any = []
+  currentAccess:any = []
 
   constructor(private apiService:ApiService){}
 
   ngOnInit(){
-   this.getStates() 
+   this.getStates()
+   this.getClientsFull()
   }
 
   getStates(){
@@ -22,25 +25,41 @@ export class WalletComponent {
   }
 
   getClientsFull(){
-    this.apiService.getClientsFull()
-    .subscribe(
+    this.apiService.getClientsFull().subscribe(
       data=>{
         this.data=data.rows
-        console.log(this.data)
+        this.results=this.data
       })
+    }
+
+  find(route:any,params:any){
+    if(params.cnpj=="") delete params.cnpj
+    if(params.name=="") delete params.name
+    if(params.city=="") delete params.city
+    if(params.state=="") delete params.state
+    if(params.can_renovate==false) delete params.can_renovate
+    
+    this.apiService.find(route,params).subscribe(
+      (res:any)=>this.results=res.rows,
+      err=>console.log('HTTP Error', err),
+      ()=>console.log('HTTP request completed.')
+      )
   }
 
-  find(params:any){
-    if(params.where.cnpj=="") delete params.where.cnpj
-    if(params.where.name=="") delete params.where.name
-    if(params.where.city=="") delete params.where.city
-    if(params.where.state=="") delete params.where.state
-    if(params.where.can_renovate==false) delete params.where.can_renovate
-    console.log(params)
+  show(target:any){
 
-    this.apiService.find("clients/find",params)
-    .subscribe(
-      res=>this.data=res,
+    if(target.classList.contains('showing')){
+      target.classList.remove('showing')
+      target.classList.add('hidden')
+    }else{
+      target.classList.remove('hidden')
+      target.classList.add('showing')
+    }
+  }
+  findAccess(id:any){
+    console.log(id)
+    this.apiService.find('platforms-access/find',id).subscribe(
+      (res:any)=>this.currentAccess=res.rows,
       err=>console.log('HTTP Error', err),
       ()=>console.log('HTTP request completed.')
       )
