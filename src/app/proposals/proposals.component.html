@@ -23,19 +23,47 @@
 
         <div id="generator">
             <div class="subtitle">Gerador de Propostas</div>
-            <div class="linetitle">
-                <div>Linha</div>
-                <div>Plano Atual</div>
-                <div>Preço Atual</div>
-                <div>Plano Renovado</div>
-                <div>Preço Renovado</div>
+            <div id="generator-content">
+                <div class="linetitle">
+                    <div>Linha</div>
+                    <div>Plano Atual</div>
+                    <div>Preço Atual</div>
+                    <div>Plano Renovado</div>
+                    <div>Preço Renovado</div>
+                </div>
+                <div *ngFor="let line of lines" class="line">
+                    <div class="line-data">
+                        <input placeholder="N. da Linha">
+                    </div>
+                    <div class="line-data">
+                        <input placeholder="Plano atual" list="plans-list" (input)="getPlanPrice(currentPlan.value,currentPrice,'current')" #currentPlan>
+                    </div>
+                    <div class="line-data">
+                        <span>R$ </span><input placeholder="Preço atual" (input)="updatePrice('current')" class="current-price" #currentPrice>
+                    </div>
+                    <div class="line-data">
+                        <input placeholder="Plano novo" list="plans-list" (input)="getPlanPrice(newPlan.value,newPrice,'new')" #newPlan>
+                    </div>
+                    <div class="line-data">
+                        <span>R$ </span><input placeholder="Preço novo" (input)="updatePrice('new')" class="new-price" #newPrice>
+                    </div>
+                </div>
+                <div class="total">
+                    <div>Total Atual:</div>
+                    <div id="current-total">-</div>
+                    <div>Total Renovado:</div>
+                    <div id="new-total">-</div>
+                </div>
             </div>
-            <div class="total">
-                <div>Total Atual:</div>
-                <div>-</div>
-                <div>Total Renovado:</div>
-                <div>-</div>
-            </div>
+        </div>
+        <div id="generator-controls">
+            <button (click)="addLine()">Adicionar linha</button>
+            <button (click)="removeLine()">Remover linha</button>
+            <button (click)="print()">Salvar</button>
         </div>
     </section>
 </section>
+
+<datalist id="plans-list">
+    <option *ngFor="let plan of plans" value="{{plan.offer}}"></option>
+</datalist>
