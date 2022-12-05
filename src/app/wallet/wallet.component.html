@@ -50,7 +50,7 @@
             <div>{{result.name}}</div>
             <div>{{result.state}}</div>
             <div>{{result.city}}</div>
-            <div>{{result.can_renovate}}</div>
+            <div>{{result.can_renovate==1? 'Sim' : 'Não'}}</div>
             <div>{{result.remaining_to_renovate}} {{result.remaining_to_renovate==1? 'mês' : 'meses'}}</div>
             <span (click)="show(actions)">➕</span>
             <div class="actions hidden" #actions>

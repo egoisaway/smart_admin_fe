@@ -10,6 +10,7 @@ import { HttpClientModule } from '@angular/common/http';
 import { WalletModule } from './wallet/wallet.module';
 import { FormsModule } from '@angular/forms';
 import { ProposalsModule } from './proposals/proposals.module';
+import { SalesModule } from './sales/sales.module';
 
 @NgModule({
   declarations: [
@@ -23,7 +24,8 @@ import { ProposalsModule } from './proposals/proposals.module';
     AppRoutingModule,
     FormsModule,
     WalletModule,
-    ProposalsModule
+    ProposalsModule,
+    SalesModule
   ],
   providers: [],
   bootstrap: [AppComponent]

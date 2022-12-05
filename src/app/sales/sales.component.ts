@@ -13,7 +13,7 @@ export class SalesComponent {
   constructor(private apiService:ApiService){}
 
   getSales(){
-    this.apiService.getAll("sales").subscribe(data=>this.sales=data.rows)
+    this.apiService.getAll("sales/full").subscribe(data=>this.sales=data.rows)
   }
 
   ngOnInit(){

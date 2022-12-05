@@ -3,7 +3,35 @@
         <div id="title">{{title}}</div>
     </div>
 
-    <section>
-        Página em construção.
+    <form>
+        <div>
+            <label for="cnpj">CNPJ</label>
+            <input id="cnpj" type="text" #cnpj>
+        </div>
+        <div>
+            <label for="name">Razão Social</label>
+            <input id="name" type="text" list="client-list" #name>
+        </div>
+        <div>
+            <label for="city">Cidade</label>
+            <input id="city" type="text" #city>
+        </div>
+        <div>
+            <label for="uf">UF</label>
+            <select id="uf" #uf>
+                <option></option>
+            </select>
+        </div>
+        <div>
+            <label for="renovable">Apto a Renovar</label>
+            <input id="renovable" type="checkbox" #renovable>
+        </div>
+    </form>
+    <button>Consultar</button>
+
+    <section id="results">
+        <div *ngFor="let sale of sales">
+            {{sale.client_name}}
+        </div>
     </section>
 </section>
