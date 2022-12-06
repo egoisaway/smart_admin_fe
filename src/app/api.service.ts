@@ -8,7 +8,7 @@ export class ApiService {
 
   constructor(private httpClient:HttpClient) { }
 
-  api = "http://192.168.0.23:3000"
+  api = "http://192.168.0.132:3000"
 
   public getAll(route:string){
     return this.httpClient.get<any>(`${this.api}/${route}`)

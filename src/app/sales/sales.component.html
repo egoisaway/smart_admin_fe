@@ -1,6 +1,9 @@
 <section>
     <div id="pannels">
         <div id="title">{{title}}</div>
+        <div id="options">
+            <div>Cantar Venda</div>
+        </div>
     </div>
 
     <form>
@@ -12,26 +15,42 @@
             <label for="name">Razão Social</label>
             <input id="name" type="text" list="client-list" #name>
         </div>
+        <!-- <div>
+            <label for="city">VTC</label>
+            <input id="vtc" type="text" #vtc>
+        </div> -->
         <div>
-            <label for="city">Cidade</label>
-            <input id="city" type="text" #city>
+            <label for="person">Vendedor</label>
+            <input id="person" type="text" list="person-list" #person>
         </div>
         <div>
-            <label for="uf">UF</label>
-            <select id="uf" #uf>
-                <option></option>
-            </select>
-        </div>
-        <div>
-            <label for="renovable">Apto a Renovar</label>
-            <input id="renovable" type="checkbox" #renovable>
+            <label for="daterange">Data</label>
+            <input id="daterange" name="dates" type="text">
         </div>
     </form>
-    <button>Consultar</button>
+    <button (click)="find('sales/find',{client_cnpj:cnpj.value,client_name:name.value,person_name:person.value})">Consultar</button>
 
     <section id="results">
-        <div *ngFor="let sale of sales">
-            {{sale.client_name}}
+        <div class="sale">
+            <div>CNPJ</div>
+            <div>Razão Social</div>
+            <div>VTC</div>
+            <div>Vendedor</div>
+            <div>Data da Venda</div>
+        </div>
+        <div *ngFor="let sale of sales" class="sale">
+            <div>{{sale.client_cnpj}}</div>
+            <div>{{sale.client_name}}</div>
+            <div>R$ {{getSum([sale.vtc_lines,sale.vtc_broadbands,sale.vtc_devices])}}</div>
+            <div>{{sale.person_name}}</div>
+            <div>{{makeDate(sale.created_at)}}</div>
         </div>
     </section>
 </section>
+<datalist id="client-list">
+    <option *ngFor="let client of clients" value="{{client.name}}"></option>
+</datalist>
+
+<datalist id="person-list">
+    <option *ngFor="let person of people" value="{{person.name}}"></option>
+</datalist>

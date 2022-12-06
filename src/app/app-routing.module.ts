@@ -9,7 +9,7 @@ import { WalletComponent } from './wallet/wallet.component';
 const routes: Routes = [
   { path: '', component: HomeComponent },
   { path: 'carteira', component: WalletComponent },
-  { path: 'vendas', component: SalesComponent },
+  { path: 'vendas/:client_cnpj', component: SalesComponent },
   { path: 'propostas/:cnpj', component: ProposalsComponent },
   { path: 'relatorios', component: ReportsComponent }
 ];

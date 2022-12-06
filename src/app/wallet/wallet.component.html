@@ -57,7 +57,7 @@
                 <a href="/propostas/{{result.cnpj}}"><div class="proposals">📝</div></a>
                 <div class="acesses" (click)="show(access); findAccess({client_id:accessId.innerHTML})">🗝️ <span class="hidden" #accessId>{{result.id}}</span></div>
                 <div class="lines" >📱</div>
-                <div class="sales" >💸</div>
+                <a href="/vendas/{{result.cnpj}}"><div class="sales" >💸</div></a>
             </div>
         </div>
     </section>

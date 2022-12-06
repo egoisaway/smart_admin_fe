@@ -11,6 +11,10 @@ import { WalletModule } from './wallet/wallet.module';
 import { FormsModule } from '@angular/forms';
 import { ProposalsModule } from './proposals/proposals.module';
 import { SalesModule } from './sales/sales.module';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { MatDatepickerModule } from '@angular/material/datepicker';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatNativeDateModule } from '@angular/material/core';
 
 @NgModule({
   declarations: [
@@ -25,7 +29,8 @@ import { SalesModule } from './sales/sales.module';
     FormsModule,
     WalletModule,
     ProposalsModule,
-    SalesModule
+    SalesModule,
+    BrowserAnimationsModule
   ],
   providers: [],
   bootstrap: [AppComponent]
