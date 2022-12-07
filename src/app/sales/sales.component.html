@@ -1,51 +1,170 @@
 <section>
     <div id="pannels">
-        <div id="title">{{title}}</div>
+        <div id="title">Vendas</div>
         <div id="options">
-            <div>Cantar Venda</div>
+            <div (click)="show(report);hide(sing)">Registro de Vendas</div>
+            <div (click)="show(sing);hide(report)">Cantar Venda</div>
         </div>
     </div>
 
-    <form>
-        <div>
-            <label for="cnpj">CNPJ</label>
-            <input id="cnpj" type="text" #cnpj>
-        </div>
-        <div>
-            <label for="name">Razão Social</label>
-            <input id="name" type="text" list="client-list" #name>
-        </div>
-        <!-- <div>
-            <label for="city">VTC</label>
-            <input id="vtc" type="text" #vtc>
-        </div> -->
-        <div>
-            <label for="person">Vendedor</label>
-            <input id="person" type="text" list="person-list" #person>
-        </div>
-        <div>
-            <label for="daterange">Data</label>
-            <input id="daterange" name="dates" type="text">
-        </div>
-    </form>
-    <button (click)="find('sales/find',{client_cnpj:cnpj.value,client_name:name.value,person_name:person.value})">Consultar</button>
+    <div class="report tab showing" #report>
 
-    <section id="results">
-        <div class="sale">
-            <div>CNPJ</div>
-            <div>Razão Social</div>
-            <div>VTC</div>
-            <div>Vendedor</div>
-            <div>Data da Venda</div>
-        </div>
-        <div *ngFor="let sale of sales" class="sale">
-            <div>{{sale.client_cnpj}}</div>
-            <div>{{sale.client_name}}</div>
-            <div>R$ {{getSum([sale.vtc_lines,sale.vtc_broadbands,sale.vtc_devices])}}</div>
-            <div>{{sale.person_name}}</div>
-            <div>{{makeDate(sale.created_at)}}</div>
-        </div>
-    </section>
+        <form>
+            <div>
+                <label for="cnpj">CNPJ</label>
+                <input id="cnpj" type="text" #cnpj>
+            </div>
+            <div>
+                <label for="name">Razão Social</label>
+                <input id="name" type="text" list="client-list" #name>
+            </div>
+            <!-- <div>
+                <label for="city">VTC</label>
+                <input id="vtc" type="text" #vtc>
+            </div> -->
+            <div>
+                <label for="person">Vendedor</label>
+                <input id="person" type="text" list="person-list" #person>
+            </div>
+            <!-- <div>
+                <label for="daterange">Data</label>
+                <input id="daterange" name="dates" type="text">
+            </div> -->
+        </form>
+        <button (click)="find('sales/find',{client_cnpj:cnpj.value,client_name:name.value,person_name:person.value})">Consultar</button>
+    
+        <section id="results">
+            <div class="sale">
+                <div>CNPJ</div>
+                <div>Razão Social</div>
+                <div>VTC</div>
+                <div>Vendedor</div>
+                <div>Data da Venda</div>
+            </div>
+            <div *ngFor="let sale of sales" class="sale">
+                <div>{{sale.client_cnpj}}</div>
+                <div>{{sale.client_name}}</div>
+                <div>R$ {{getSum([sale.vtc_lines,sale.vtc_broadbands,sale.vtc_devices])}}</div>
+                <div>{{sale.person_name}}</div>
+                <div>{{makeDate(sale.created_at)}}</div>
+            </div>
+        </section>
+    </div>
+
+    <div class="sing tab hidden" #sing>
+        <form>
+            <div id="client_data">
+                <div class="subtitle">Dados do Cliente</div>
+                <div>
+                    <label for="new_client">Cliente Novo?</label>
+                    <input id="new_client" type="checkbox" #newClient>
+                </div>
+                <div>
+                    <label for="new_name">Razão Social</label>
+                    <input id="new_name" type="text" list="client-list" (change)="autoFillData(newName.value, newCnpj, newUf, newPerson, newCpf, newCity, newRenovationType, newFixed, newMobile, newEmail)" #newName>
+                </div>
+                <div>
+                    <label for="new_cnpj">CNPJ</label>
+                    <input id="new_cnpj" type="text" #newCnpj>
+                </div>
+                <div>
+                    <label for="uf">UF</label>
+                    <select id="uf" #newUf>
+                        <option *ngFor="let state of states">{{state.acronym}}</option>
+                    </select>
+                </div>
+                <div>
+                    <label for="new_city">Cidade</label>
+                    <input id="new_city" type="text" list="city-list" #newCity>
+                </div>
+                <div>
+                    <label for="new_renovation_type">Tipo de Renovação</label>
+                    <select id="renovation_type" #newRenovationType>
+                        <option *ngFor="let renovation_type of renovation_types">{{renovation_type.acronym}}</option>
+                    </select>
+                </div>
+                <div>
+                    <label for="new_person_check">Pessoa Nova?</label>
+                    <input id="new_person_check" type="checkbox" #newPersonCheck>
+                </div>
+                <div>
+                    <label for="new_person">Responsável Legal</label>
+                    <input id="new_person" type="text" #newPerson>
+                </div>
+                <div>
+                    <label for="new_cpf">CPF</label>
+                    <input id="new_cpf" type="text" #newCpf>
+                </div>
+                <div>
+                    <label for="obs">Observações</label>
+                    <input id="obs" type="text">
+                </div>
+            </div>
+            <div id="contact_data">
+                <div class="subtitle">Dados para Contato</div>
+                <div>
+                    <label for="new_telephone">Telefone Fixo</label>
+                    <input id="new_telephone" type="text" #newFixed>
+                </div>
+                <div>
+                    <label for="new_cellphone">Telefone Móvel</label>
+                    <input id="new_cellphone" type="text" #newMobile>
+                </div>
+                <div>
+                    <label for="new_email">Email</label>
+                    <input id="new_email" name="dates" type="text" #newEmail>
+                </div>
+                <!-- <div>
+                    <label for="new_emailfortt">Email para TT</label>
+                    <input id="new_emailfortt" name="dates" type="text">
+                </div> -->
+            </div>
+
+            <div id="items_data">
+                <div class="subtitle">Itens Vendidos</div>
+                <div id="items-content">
+                    <div class="itemtitle">
+                        <div>Tipo</div>
+                        <div>Item</div>
+                        <div>Preço</div>
+                        <div>Quantitade</div>
+                    </div>
+                    <div *ngFor="let item of items" class="item">
+                        <div class="item-data">
+                            <select #newService (change)="true">
+                                <option *ngFor="let service of services">{{service.name}}</option>
+                            </select>
+                        </div>
+                        <div class="item-data" *ngIf="newService.value=='Móvel Pós-pago'">
+                            <select #newLineType>
+                                <option *ngFor="let line_type of line_types">{{line_type.name}}</option>
+                            </select>
+                        </div>
+                        <div class="item-data">
+                            <input placeholder="Item Vendido" list="plans-list" (input)="getPlanPrice(newItem.value,newPrice,'current')" #newItem>
+                        </div>
+                        <div class="item-data">
+                            <span>R$ </span><input placeholder="Preço do Item" (input)="updatePrice(newPrice.value,newQuantity.value,totalSubprice)" #newPrice>
+                        </div>
+                        <div class="item-data">
+                            <span>x </span><input placeholder="Quantidade" (input)="updatePrice(newPrice.value,newQuantity.value,totalSubprice)" #newQuantity>
+                        </div>
+                        <span class="totalSubprice" #totalSubprice></span>
+                    </div>
+                    <div class="total">
+                        <div>Total:</div>
+                        <div id="current-total">-</div>
+                    </div>
+                </div>
+                <div id="generator-controls">
+                    <button  type="button" (click)="addItem()">Adicionar Item</button>
+                    <button  type="button" (click)="removeItem()">Remover Item</button>
+                </div>
+            </div>
+        </form>
+        <button 
+        (click)="singSale(newClient.checked, newPersonCheck.checked, {cnpj:newCnpj.value,name:newName.value},{uf:newUf.value,city:newCity.value, renovation_type:newRenovationType.value})">Cantar!</button>
+    </div>
 </section>
 <datalist id="client-list">
     <option *ngFor="let client of clients" value="{{client.name}}"></option>
@@ -53,4 +172,12 @@
 
 <datalist id="person-list">
     <option *ngFor="let person of people" value="{{person.name}}"></option>
+</datalist>
+
+<datalist id="plans-list">
+    <option *ngFor="let plan of plans" value="{{plan.offer}}"></option>
+</datalist>
+
+<datalist id="city-list">
+    <option *ngFor="let city of cities" value="{{city.name}}"></option>
 </datalist>

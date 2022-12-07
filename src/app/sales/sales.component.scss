@@ -16,7 +16,6 @@ section #pannels{
     display: flex;
     justify-content: space-between;
     align-items: center;
-    margin-bottom: 70px;
     color: white;
 }
 section #pannels #options{
@@ -25,6 +24,7 @@ section #pannels #options{
 section #pannels #options div{
     padding: 10px;
     transition: all .1s;
+    cursor: pointer;
 }
 section #pannels #options div:hover{
     background-color: #da291c;
@@ -50,8 +50,9 @@ section form input{
     border: none;
     border-bottom: 1px solid black;
 }
-section button{
+button{
     height: 50px;
+    width: 100%;
     border: none;
     background-color: lightgray;
     font-weight: bold;
@@ -96,4 +97,66 @@ section button:hover{
     background-color: rgba($color: #000000, $alpha: 0.7);
     backdrop-filter: blur(10px);
     color: white;
+}
+
+div{
+    transition: all .2s;
+}
+.showing{
+    height: auto;
+    padding: 70px 0;
+}
+.hidden{
+    height: 0px;
+    padding: 0;
+    overflow: hidden;
+}
+
+.sing form{
+    display: flex;
+    justify-content: space-between;
+}
+#client_data,#contact_data,#items_data{
+    display: flex;
+    flex-direction: column;
+}
+#client_data,#contact_data{
+    width: 25%;
+}
+#items_data{
+    width: 45%;
+}
+
+div.subtitle{
+    font-weight: bold;
+    margin-bottom: 25px;
+}
+
+#client_data div,#contact_data div,#items_data{
+    padding: 20px 0;
+}
+#new_client, #new_person_check{
+    width: 20px;
+}
+
+#items_data .itemtitle,#items_data .items,#items_data .item, #items_data .item-data, #items_data .total{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+}
+.item{
+    padding: 10px 0;
+    color: lightgray;
+    text-align: left;
+}
+.item input{
+    border-bottom: none !important;
+}
+.totalSubprice{
+    display: none;
+}
+.total{
+    border-top: 1px solid black;
+    margin: 15px 0;
+    padding: 10px 0;
 }

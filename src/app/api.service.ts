@@ -18,12 +18,8 @@ export class ApiService {
     return this.httpClient.get<any>(`${this.api}/${route}/${params}`)
   }
 
-  public create(route:string,data:[]){
-    return this.httpClient.post(`${this.api}/${route}`, data).subscribe(
-      res => console.log('HTTP response', res),
-      err => console.log('HTTP Error', err),
-      () => console.log('HTTP request completed.')
-    )
+  public create(route:string,data:any){
+    return this.httpClient.post(`${this.api}/${route}`, data)
   }
 
   public getClientsFull(){
