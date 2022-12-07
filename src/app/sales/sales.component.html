@@ -56,8 +56,8 @@
             <div id="client_data">
                 <div class="subtitle">Dados do Cliente</div>
                 <div>
-                    <label for="new_client">Cliente Novo?</label>
-                    <input id="new_client" type="checkbox" #newClient>
+                    <label for="new_seller">Vendedor</label>
+                    <input id="new_seller" type="text" list="person-list" #newSeller>
                 </div>
                 <div>
                     <label for="new_name">Razão Social</label>
@@ -84,10 +84,6 @@
                     </select>
                 </div>
                 <div>
-                    <label for="new_person_check">Pessoa Nova?</label>
-                    <input id="new_person_check" type="checkbox" #newPersonCheck>
-                </div>
-                <div>
                     <label for="new_person">Responsável Legal</label>
                     <input id="new_person" type="text" #newPerson>
                 </div>
@@ -97,7 +93,7 @@
                 </div>
                 <div>
                     <label for="obs">Observações</label>
-                    <input id="obs" type="text">
+                    <input id="obs" type="text" #newObservation>
                 </div>
             </div>
             <div id="contact_data">
@@ -131,23 +127,23 @@
                     </div>
                     <div *ngFor="let item of items" class="item">
                         <div class="item-data">
-                            <select #newService (change)="true">
+                            <select #newService (change)="true" class="item-input">
                                 <option *ngFor="let service of services">{{service.name}}</option>
                             </select>
                         </div>
                         <div class="item-data" *ngIf="newService.value=='Móvel Pós-pago'">
-                            <select #newLineType>
+                            <select #newLineType class="item-input">
                                 <option *ngFor="let line_type of line_types">{{line_type.name}}</option>
                             </select>
                         </div>
                         <div class="item-data">
-                            <input placeholder="Item Vendido" list="plans-list" (input)="getPlanPrice(newItem.value,newPrice,'current')" #newItem>
+                            <input placeholder="Item Vendido" list="plans-list" (input)="getPlanPrice(newItem.value,newPrice,'current')" class="item-input" #newItem>
                         </div>
                         <div class="item-data">
-                            <span>R$ </span><input placeholder="Preço do Item" (input)="updatePrice(newPrice.value,newQuantity.value,totalSubprice)" #newPrice>
+                            <span>R$ </span><input placeholder="Preço do Item" (input)="updatePrice(newPrice.value,newQuantity.value,totalSubprice)" class="item-input" #newPrice>
                         </div>
                         <div class="item-data">
-                            <span>x </span><input placeholder="Quantidade" (input)="updatePrice(newPrice.value,newQuantity.value,totalSubprice)" #newQuantity>
+                            <span>x </span><input placeholder="Quantidade" (input)="updatePrice(newPrice.value,newQuantity.value,totalSubprice)" class="item-input" #newQuantity>
                         </div>
                         <span class="totalSubprice" #totalSubprice></span>
                     </div>
@@ -163,7 +159,7 @@
             </div>
         </form>
         <button 
-        (click)="singSale(newClient.checked, newPersonCheck.checked, {cnpj:newCnpj.value,name:newName.value},{uf:newUf.value,city:newCity.value, renovation_type:newRenovationType.value})">Cantar!</button>
+        (click)="singSale({cnpj:newCnpj.value,name:newName.value},{uf:newUf.value,city:newCity.value, renovation_type:newRenovationType.value},{fixed:newFixed.value,mobile:newMobile.value,email:newEmail.value},{seller_name:newSeller.value,person_name:newPerson.value,cpf:newCpf.value,observation:newObservation.value})">Cantar!</button>
     </div>
 </section>
 <datalist id="client-list">
