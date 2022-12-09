@@ -185,7 +185,6 @@ export class SalesComponent {
     this.people.find((obj:any)=>{
       if (obj.name == saleData.seller_name) sellerId = obj.id
     })
-    if(saleData.cpf == "") delete saleData.cpf
     
     //price-getting
     items = Array.from(document.getElementsByClassName('item'))
@@ -236,9 +235,9 @@ export class SalesComponent {
     let devices:Array<any>    = []
     
     totalPrices.find((obj:any)=>{
-      if (obj.type == 'Banda Larga') broadbands.push(obj.subTotal)
-      if (obj.type == 'Móvel Pós-pago' || obj.type == 'Fixo Pós-pago') mobiles.push(obj.subTotal)
-      if (obj.type == 'Aparelho') devices.push(obj.subTotal)
+      if (obj.service == 'Banda Larga') broadbands.push(obj.subTotal)
+      if (obj.service == 'Móvel Pós-pago' || obj.service == 'Fixo Pós-pago') mobiles.push(obj.subTotal)
+      if (obj.service == 'Aparelho') devices.push(obj.subTotal)
     })
     itemValues.broadbands = broadbands.reduce((accumulator, value)=>{return accumulator+value}, 0);
     itemValues.mobiles = mobiles.reduce((accumulator, value)=>{return accumulator+value}, 0);
@@ -268,6 +267,7 @@ export class SalesComponent {
       created_at     : (new Date()).toISOString().split('T')[0]
     }
     params.renovations = {
+      sale_id    : null,
       client_id  : clientId,
       quantity   : totalRenovations,
       created_at : (new Date()).toISOString().split('T')[0]
