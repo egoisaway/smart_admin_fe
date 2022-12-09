@@ -22,6 +22,7 @@ export class SalesComponent {
   showLineTypes = false
   items:Array<any> =[]
   plans: Array<any> = []
+  plansToShow: Array<any> = []
 
 
   constructor(private apiService:ApiService, public route:ActivatedRoute){}
@@ -150,121 +151,145 @@ export class SalesComponent {
   }
 
   singSale(clientData:any,toFindClient:any,contactData:any,saleData:any){
-    // if(isNewClient){
-    if (true){
+    //declarations
+    let clientId
+    let ufId
+    let cityId
+    let renovationTypeId
+    let personId
+    let sellerId
+    let items
+    let totalPrices:Array<any>      = []
+    let totalItems:Array<any>       = []
+    let totalRenovations:number     = 0
+    let contacts:Array<any>         = []
+    let itemValues = {broadbands:'', mobiles:'', devices:''}
+    let params = {client:{}, sale:{}, contacts:{}, people:{}, lines:{}, renovations:{}}
 
-      //declarations
-      let clientId
-      let ufId
-      let cityId
-      let renovationTypeId
-      let personId
-      let sellerId
-      let items
-      let totalPrices:Array<any> = []
-      let totalItems:Array<any> = []
-      let contacts:Array<any> = []
-      let itemValues = {broadbands:'', mobiles:'', devices:''}
-      let params = {client:{}, sale:{}, contacts:{}, people:{}}
+    //data reutilization
+    this.clients.find((obj:any)=>{
+      if (obj.cnpj == clientData.cnpj) clientId = obj.id
+    })
+    this.states.find((obj:any)=>{
+      if (obj.acronym == toFindClient.uf) ufId = obj.id
+    })
+    this.cities.find((obj:any)=>{
+      if (obj.name    == toFindClient.city) cityId = obj.id
+    })
+    this.renovation_types.find((obj:any)=>{
+      if (obj.acronym == toFindClient.renovation_type) renovationTypeId = obj.id
+    })
+    this.people.find((obj:any)=>{
+      if (obj.name == saleData.person_name) personId = obj.id
+    })
+    this.people.find((obj:any)=>{
+      if (obj.name == saleData.seller_name) sellerId = obj.id
+    })
+    if(saleData.cpf == "") delete saleData.cpf
+    
+    //price-getting
+    items = Array.from(document.getElementsByClassName('item'))
+    items.forEach((item:any) => {
+      let service            = (<HTMLInputElement>item.children.item(0)?.children.item(0)).value;
+      let hasLineType        = <HTMLInputElement>item.children.item(0)?.children.item(1)
+      let line_type:string   = ''
+      hasLineType? line_type = (hasLineType).value : false;
+      let plan               = (<HTMLInputElement>item.children.item(item.childElementCount-4)?.children.item(0)).value;
+      let price              = (<HTMLInputElement>item.children.item(item.childElementCount-3)?.children.item(1)).value;
+      let quantity           = parseInt((<HTMLInputElement>item.children.item(item.childElementCount-2)?.children.item(1)).value); 
+      let subTotal           = (Math.round(((parseFloat(price)*quantity) + Number.EPSILON) * 100) / 100)
 
-      //data reutilization
-      this.clients.find((obj:any)=>{
-        if (obj.cnpj == clientData.cnpj) clientId = obj.id
-      })
-      this.states.find((obj:any)=>{
-        if (obj.acronym == toFindClient.uf) ufId = obj.id
-      })
-      this.cities.find((obj:any)=>{
-        if (obj.name    == toFindClient.city) cityId = obj.id
-      })
-      this.renovation_types.find((obj:any)=>{
-        if (obj.acronym == toFindClient.renovation_type) renovationTypeId = obj.id
-      })
-      this.people.find((obj:any)=>{
-        if (obj.name == saleData.person_name) personId = obj.id
-      })
-      this.people.find((obj:any)=>{
-        if (obj.name == saleData.seller_name) sellerId = obj.id
-      })
-      if(saleData.cpf == "") delete saleData.cpf
-      
-      //price-getting
-      items = Array.from(document.getElementsByClassName('item'))
-      items.forEach((item:any) => {
-        let service     = (<HTMLInputElement>item.children.item(0)?.children.item(0)).value;
-        let line_type     = (<HTMLInputElement>item.children.item(item.childElementCount-4)?.children.item(0)).value;
-        let plan     = (<HTMLInputElement>item.children.item(item.childElementCount-4)?.children.item(0)).value;
-        let price    = (<HTMLInputElement>item.children.item(item.childElementCount-3)?.children.item(1)).value;
-        let quantity = parseInt((<HTMLInputElement>item.children.item(item.childElementCount-2)?.children.item(1)).value); 
-        let subTotal = (Math.round(((parseFloat(price)*quantity) + Number.EPSILON) * 100) / 100)
-
-        //line-filtering
-        totalPrices.push({service,subTotal})
-        while(quantity>0){
-          quantity--
-          totalItems.push({service,plan,price})
+      //line-filtering
+      totalPrices.push({service,subTotal})
+      while(quantity>0){
+        //declarations
+        let line_type_id = null
+        let plan_id      = null
+        let service_id   = null
+        
+        //data-finding
+        this.line_types.find((obj:any)=>{
+          obj.name == line_type? line_type_id = obj.id : false
+        })
+        this.plans.find((obj:any)=>{
+          obj.offer == plan? plan_id = obj.id : false
+        })
+        this.services.find((obj:any)=>{
+          obj.name == service? service_id = obj.id : false
+        })
+        
+        //separations between renovations and increments
+        if(line_type_id != 1){
+          totalItems.push({service_id,plan_id,price,line_type_id,created_at:(new Date()).toISOString().split('T')[0]})
+        }else{
+          totalRenovations++
         }
-      });
-      console.log(totalItems)
-      
 
-      //price-filtering
-      let broadbands:Array<any> = []
-      let mobiles:Array<any> = []
-      let devices:Array<any> = []
-      
-      totalPrices.find((obj:any)=>{
-        if (obj.type == 'Banda Larga') broadbands.push(obj.subTotal)
-        if (obj.type == 'Móvel Pós-pago' || obj.type == 'Fixo Pós-pago') mobiles.push(obj.subTotal)
-        if (obj.type == 'Aparelho') devices.push(obj.subTotal)
-      })
-      itemValues.broadbands = broadbands.reduce((accumulator, value)=>{return accumulator+value}, 0);
-      itemValues.mobiles = mobiles.reduce((accumulator, value)=>{return accumulator+value}, 0);
-      itemValues.devices = devices.reduce((accumulator, value)=>{return accumulator+value}, 0);
-
-      //contact data filtering
-      if(contactData.email  == ""){delete contactData.email}  else {contacts.push({person_id:personId,contact_type_id:1,contact:contactData.email,created_at:(new Date()).toISOString().split('T')[0]})};
-      if(contactData.mobile == ""){delete contactData.mobile} else {contacts.push({person_id:personId,contact_type_id:2,contact:contactData.mobile,created_at:(new Date()).toISOString().split('T')[0]})};
-      if(contactData.fixed  == ""){delete contactData.fixed}  else {contacts.push({person_id:personId,contact_type_id:3,contact:contactData.fixed,created_at:(new Date()).toISOString().split('T')[0]})};
-
-      //params-to-api declarations
-      params.client = {
-        cnpj               : clientData.cnpj,
-        name               : clientData.name,
-        state_id           : ufId,
-        city_id            : cityId,
-        renovation_type_id : renovationTypeId,
-        created_at         : (new Date()).toISOString().split('T')[0]
+        //item counting
+        quantity--
       }
-      params.sale = {
-        client_id      : clientId,
-        person_id      : sellerId,
-        vtc_lines      : itemValues.mobiles,
-        vtc_broadbands : itemValues.broadbands,
-        vtc_devices    : itemValues.devices,
-        observation    : saleData.observation,
-        created_at     : (new Date()).toISOString().split('T')[0]
-      }
-      params.people = [{
-        client_id      : clientId,
-        cpf            : saleData.cpf,
-        name           : saleData.person_name,
-        job            : 1,
-        created_at     : (new Date()).toISOString().split('T')[0]
-      },{
-        client_id      : 461,
-        name           : saleData.seller_name,
-        created_at     : (new Date()).toISOString().split('T')[0]
-      }]
-      params.contacts = contacts
+    })      
 
-      // this.apiService.create("sales/sing",params).subscribe(
-      //     (res:any)=>{
-      //         console.log(res)
-      //   }
-      // )
-    }else{
+    //price-filtering
+    let broadbands:Array<any> = []
+    let mobiles:Array<any>    = []
+    let devices:Array<any>    = []
+    
+    totalPrices.find((obj:any)=>{
+      if (obj.type == 'Banda Larga') broadbands.push(obj.subTotal)
+      if (obj.type == 'Móvel Pós-pago' || obj.type == 'Fixo Pós-pago') mobiles.push(obj.subTotal)
+      if (obj.type == 'Aparelho') devices.push(obj.subTotal)
+    })
+    itemValues.broadbands = broadbands.reduce((accumulator, value)=>{return accumulator+value}, 0);
+    itemValues.mobiles = mobiles.reduce((accumulator, value)=>{return accumulator+value}, 0);
+    itemValues.devices = devices.reduce((accumulator, value)=>{return accumulator+value}, 0);
 
+    //contact data filtering
+    if(contactData.email  == ""){delete contactData.email}  else {contacts.push({person_id:personId,contact_type_id:1,contact:contactData.email,created_at:(new Date()).toISOString().split('T')[0]})};
+    if(contactData.mobile == ""){delete contactData.mobile} else {contacts.push({person_id:personId,contact_type_id:2,contact:contactData.mobile,created_at:(new Date()).toISOString().split('T')[0]})};
+    if(contactData.fixed  == ""){delete contactData.fixed}  else {contacts.push({person_id:personId,contact_type_id:3,contact:contactData.fixed,created_at:(new Date()).toISOString().split('T')[0]})};
+
+    //params-to-api declarations
+    params.client = {
+      cnpj               : clientData.cnpj,
+      name               : clientData.name,
+      state_id           : ufId,
+      city_id            : cityId,
+      renovation_type_id : renovationTypeId,
+      created_at         : (new Date()).toISOString().split('T')[0]
     }
+    params.sale = {
+      client_id      : clientId,
+      person_id      : sellerId,
+      vtc_lines      : itemValues.mobiles,
+      vtc_broadbands : itemValues.broadbands,
+      vtc_devices    : itemValues.devices,
+      observation    : saleData.observation,
+      created_at     : (new Date()).toISOString().split('T')[0]
+    }
+    params.renovations = {
+      client_id  : clientId,
+      quantity   : totalRenovations,
+      created_at : (new Date()).toISOString().split('T')[0]
+    }
+    params.people = [{
+      client_id      : clientId,
+      cpf            : saleData.cpf,
+      name           : saleData.person_name,
+      job            : 1,
+      created_at     : (new Date()).toISOString().split('T')[0]
+    },{
+      client_id      : 461,
+      name           : saleData.seller_name,
+      created_at     : (new Date()).toISOString().split('T')[0]
+    }]
+    params.lines = totalItems
+    params.contacts = contacts
+
+    this.apiService.create("sales/sing",params).subscribe(
+        (res:any)=>{
+            console.log(res)
+      }
+    )
   }
 }

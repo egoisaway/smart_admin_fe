@@ -130,9 +130,7 @@
                             <select #newService (change)="true" class="item-input">
                                 <option *ngFor="let service of services">{{service.name}}</option>
                             </select>
-                        </div>
-                        <div class="item-data" *ngIf="newService.value=='Móvel Pós-pago'">
-                            <select #newLineType class="item-input">
+                            <select #newLineType class="item-input" *ngIf="newService.value=='Móvel Pós-pago'">
                                 <option *ngFor="let line_type of line_types">{{line_type.name}}</option>
                             </select>
                         </div>
