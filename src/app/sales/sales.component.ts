@@ -10,6 +10,7 @@ import { ApiService } from '../api.service';
 })
 export class SalesComponent {
   sales:any
+  statuses:any
   clients:any
   people:any
   contacts:any
@@ -35,16 +36,17 @@ export class SalesComponent {
   }
 
   getData(){
-    this.apiService.getAll("clients/full")     .subscribe(data=>this.clients=data.rows)
-    this.apiService.getAll("people")           .subscribe(data=>this.people=data.rows)
-    this.apiService.getAll("contacts")         .subscribe(data=>this.contacts=data.rows)
-    this.apiService.getAll("contact-types")    .subscribe(data=>this.contact_types=data.rows)
-    this.apiService.getAll("states")           .subscribe(data=>this.states=data.rows)
-    this.apiService.getAll("cities")           .subscribe(data=>this.cities=data.rows)
-    this.apiService.getAll("plans")            .subscribe(data=>this.plans=data.rows)
-    this.apiService.getAll("renovation-types") .subscribe(data=>this.renovation_types=data.rows)
-    this.apiService.getAll("services")         .subscribe(data=>this.services=data.rows)
-    this.apiService.getAll("line-types")       .subscribe(data=>this.line_types=data.rows)
+    this.apiService.getAll("clients/full")     .subscribe(data=>this.clients          = data.rows)
+    this.apiService.getAll("people")           .subscribe(data=>this.people           = data.rows)
+    this.apiService.getAll("contacts")         .subscribe(data=>this.contacts         = data.rows)
+    this.apiService.getAll("contact-types")    .subscribe(data=>this.contact_types    = data.rows)
+    this.apiService.getAll("states")           .subscribe(data=>this.states           = data.rows)
+    this.apiService.getAll("cities")           .subscribe(data=>this.cities           = data.rows)
+    this.apiService.getAll("plans")            .subscribe(data=>this.plans            = data.rows)
+    this.apiService.getAll("renovation-types") .subscribe(data=>this.renovation_types = data.rows)
+    this.apiService.getAll("services")         .subscribe(data=>this.services         = data.rows)
+    this.apiService.getAll("line-types")       .subscribe(data=>this.line_types       = data.rows)
+    this.apiService.getAll("statuses")         .subscribe(data=>this.statuses         = data.rows)
   }
 
 
@@ -73,7 +75,10 @@ export class SalesComponent {
     if(params.client_cnpj=="") delete params.client_cnpj
     if(params.client_name=="") delete params.client_name
     if(params.person_name=="") delete params.person_name
-    if(params.name=="") delete params.client_name
+    if(params.name=="")        delete params.client_name
+    if(params.status=="")      delete params.status
+    if(params.date_start=="")  delete params.date_start
+    if(params.date_end=="")    delete params.date_end
 
     this.apiService.find(route,params).subscribe((res:any)=>this.sales=res.rows)
   }
@@ -148,6 +153,18 @@ export class SalesComponent {
         })
       }
     })
+  }
+
+  updateStatus(saleId:any,status:any){
+    let statusId
+    this.statuses.find((obj:any)=>{
+      obj.name == status? statusId = obj.id : false 
+    })
+    this.apiService.post("sales/update",{id:saleId,status_id:statusId}).subscribe(
+      (res:any)=>{
+          alert(res.res)
+      }
+    )
   }
 
   singSale(clientData:any,toFindClient:any,contactData:any,saleData:any){
@@ -250,6 +267,7 @@ export class SalesComponent {
 
     //params-to-api declarations
     params.client = {
+      id                 : clientId,
       cnpj               : clientData.cnpj,
       name               : clientData.name,
       state_id           : ufId,
@@ -264,6 +282,7 @@ export class SalesComponent {
       vtc_broadbands : itemValues.broadbands,
       vtc_devices    : itemValues.devices,
       observation    : saleData.observation,
+      status_id      : 1,
       created_at     : (new Date()).toISOString().split('T')[0]
     }
     params.renovations = {
@@ -273,12 +292,14 @@ export class SalesComponent {
       created_at : (new Date()).toISOString().split('T')[0]
     }
     params.people = [{
+      id             : personId,
       client_id      : clientId,
       cpf            : saleData.cpf,
       name           : saleData.person_name,
       job            : 1,
       created_at     : (new Date()).toISOString().split('T')[0]
     },{
+      id             : sellerId,
       client_id      : 461,
       name           : saleData.seller_name,
       created_at     : (new Date()).toISOString().split('T')[0]
@@ -286,9 +307,9 @@ export class SalesComponent {
     params.lines = totalItems
     params.contacts = contacts
 
-    this.apiService.create("sales/sing",params).subscribe(
+    this.apiService.post("sales/sing",params).subscribe(
         (res:any)=>{
-            console.log(res)
+            alert(res.res)
       }
     )
   }

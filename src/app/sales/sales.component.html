@@ -26,12 +26,22 @@
                 <label for="person">Vendedor</label>
                 <input id="person" type="text" list="person-list" #person>
             </div>
-            <!-- <div>
-                <label for="daterange">Data</label>
-                <input id="daterange" name="dates" type="text">
-            </div> -->
+            <div>
+                <label for="status">Status</label>
+                <select id="status" #status>
+                    <option *ngFor="let status of statuses">{{status.name}}</option>
+                </select>
+            </div>
+            <div>
+                <label for="datestart">De</label>
+                <input id="datestart" type="date" #datestart>
+            </div>
+            <div>
+                <label for="dateend">Até</label>
+                <input id="dateend" type="date" #dateend>
+            </div>
         </form>
-        <button (click)="find('sales/find',{client_cnpj:cnpj.value,client_name:name.value,person_name:person.value})">Consultar</button>
+        <button (click)="find('sales/find',{client_cnpj:cnpj.value,client_name:name.value,person_name:person.value,date_start:datestart.value,date_end:dateend.value})">Consultar</button>
     
         <section id="results">
             <div class="sale">
@@ -39,14 +49,58 @@
                 <div>Razão Social</div>
                 <div>VTC</div>
                 <div>Vendedor</div>
+                <div>Status</div>
                 <div>Data da Venda</div>
+                <div>Ver Detalhes</div>
             </div>
             <div *ngFor="let sale of sales" class="sale">
                 <div>{{sale.client_cnpj}}</div>
                 <div>{{sale.client_name}}</div>
                 <div>R$ {{getSum([sale.vtc_lines,sale.vtc_broadbands,sale.vtc_devices])}}</div>
                 <div>{{sale.person_name}}</div>
+                <div>{{sale.status}}</div>
                 <div>{{makeDate(sale.created_at)}}</div>
+                <div (click)="show(details)" class="show-button">➕<span style="display: none;" #saleId>{{sale.id}}</span></div>
+
+                <div class="detailsbox hidden" #details>
+                    <div class="details-title">
+                        <div>Detalhes da Venda</div>
+                        <div (click)="hide(details)" class="closer">❌</div>
+                    </div>
+                    <div class="details">
+                        <div>Id</div>
+                        <div>Razão Social</div>
+                        <div>CNPJ</div>
+                        <div>Vendedor</div>
+                        <div>VTC Linhas Móveis</div>
+                        <div>VTC Banda Larga</div>
+                        <div>VTC Aparelhos</div>
+                        <div>Número de Renovações</div>
+                        <div>Status Atual</div>
+                        <div>Editar Status</div>
+                    </div>
+                    <div class="details">
+                        <div>{{sale.id}}</div>
+                        <div>{{sale.client_name}}</div>
+                        <div>{{sale.client_cnpj}}</div>
+                        <div>{{sale.person_name}}</div>
+                        <div>{{sale.vtc_lines}}</div>
+                        <div>{{sale.vtc_broadbands}}</div>
+                        <div>{{sale.vtc_devices}}</div>
+                        <div>{{sale.renovations}}</div>
+                        <div>{{sale.status}}</div>
+                        <div>
+                            <select id="sale-status" #newStatus>
+                                <option *ngFor="let status of statuses">{{status.name}}</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="details">
+                        <div>Observações:</div>
+                        <div>{{sale.observation}}</div>
+                    </div>
+                    <button type="button" (click)="updateStatus(sale.id,newStatus.value)">Salvar</button>
+                </div>
             </div>
         </section>
     </div>

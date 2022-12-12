@@ -18,7 +18,7 @@ export class ApiService {
     return this.httpClient.get<any>(`${this.api}/${route}/${params}`)
   }
 
-  public create(route:string,data:any){
+  public post(route:string,data:any){
     return this.httpClient.post(`${this.api}/${route}`, data)
   }
 

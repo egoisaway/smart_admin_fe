@@ -40,10 +40,10 @@ export class ProposalsComponent {
     let elements = Array.from(document.getElementsByClassName(`${which}-price`))
     let values:Array<any> = []
     elements.forEach((element:any) => {
-      values.push(parseInt(element.value))
+      values.push(parseFloat(element.value))
     });
     
-    let sum = values.reduce((partialSum, a) => partialSum + a, 0);
+    let sum = Math.round(((values.reduce((partialSum, a) => partialSum + a, 0)) + Number.EPSILON) * 100) / 100
     
     let target:any = document.getElementById(`${which}-total`)
     target.innerHTML = 'R$ '+sum
