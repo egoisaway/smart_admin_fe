@@ -7,5 +7,8 @@
     width: 100vw;
     background-color: #da291c;
 }
-img{
+@media print{
+    *{
+        display: none;
+    }
 }

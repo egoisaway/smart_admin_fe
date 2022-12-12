@@ -1,80 +1,148 @@
 <section>
     <div id="pannels">
-        <div id="title">{{title}}</div>
+        <div id="title">Carteira</div>
         <div id="options">
-            <div>Buscar Renovações</div>
+            <div (click)="show(consult);hide(renovations)">Consultar Carteira</div>
+            <div (click)="show(renovations);hide(consult)">Buscar Renovações</div>
             <div>Consultar Linhas</div>
         </div>
     </div>
-    <form>
-        <div>
-            <label for="cnpj">CNPJ</label>
-            <input id="cnpj" type="text" #cnpj>
-        </div>
-        <div>
-            <label for="name">Razão Social</label>
-            <input id="name" type="text" list="client-list" #name>
-        </div>
-        <div>
-            <label for="city">Cidade</label>
-            <input id="city" type="text" #city>
-        </div>
-        <div>
-            <label for="uf">UF</label>
-            <select id="uf" #uf>
-                <option *ngFor="let state of states">{{state.acronym}}</option>
-            </select>
-        </div>
-        <div>
-            <label for="renovable">Apto a Renovar</label>
-            <input id="renovable" type="checkbox" #renovable>
-        </div>
-        <!-- <div>
-            <label for="renovation">Data da Renovação</label>
-            <input id="renovation" type="date" #date>
-        </div> -->
-    </form>
-    <button (click)="find('clients/find',{cnpj:cnpj.value,name:name.value,city:city.value,state:uf.value,can_renovate:renovable.checked})">Consultar</button>
-
-    <section id="results">
-        <div class="client">
-            <div>CNPJ</div>
-            <div>Razão Social</div>
-            <div>UF</div>
-            <div>Município</div>
-            <div>Apto a Renovar?</div>
-            <div>Tempo restante para renovar</div>
-        </div>
-        <div *ngFor="let result of results" class="client">
-            <div #cnpj>{{result.cnpj}}</div>
-            <div>{{result.name}}</div>
-            <div>{{result.state}}</div>
-            <div>{{result.city}}</div>
-            <div>{{result.can_renovate==1? 'Sim' : 'Não'}}</div>
-            <div>{{result.remaining_to_renovate}} {{result.remaining_to_renovate==1? 'mês' : 'meses'}}</div>
-            <span (click)="show(actions)">➕</span>
-            <div class="actions hidden" #actions>
-                <a href="/propostas/{{result.cnpj}}"><div class="proposals">📝</div></a>
-                <div class="acesses" (click)="show(access); findAccess({client_id:accessId.innerHTML})">🗝️ <span class="hidden" #accessId>{{result.id}}</span></div>
-                <div class="lines" >📱</div>
-                <a href="/vendas/{{result.cnpj}}"><div class="sales" >💸</div></a>
+    <div class="consult tab showing" #consult>
+        <form>
+            <div>
+                <label for="cnpj">CNPJ</label>
+                <input id="cnpj" type="text" #cnpj>
             </div>
-        </div>
-    </section>
+            <div>
+                <label for="name">Razão Social</label>
+                <input id="name" type="text" list="client-list" #name>
+            </div>
+            <div>
+                <label for="city">Cidade</label>
+                <input id="city" type="text" #city>
+            </div>
+            <div>
+                <label for="uf">UF</label>
+                <select id="uf" #uf>
+                    <option *ngFor="let state of states">{{state.acronym}}</option>
+                </select>
+            </div>
+            <div>
+                <label for="renovable">Apto a Renovar</label>
+                <input id="renovable" type="checkbox" #renovable>
+            </div>
+            <!-- <div>
+                <label for="renovation">Data da Renovação</label>
+                <input id="renovation" type="date" #date>
+            </div> -->
+        </form>
+        <button (click)="find('clients/find',{cnpj:cnpj.value,name:name.value,city:city.value,state:uf.value,can_renovate:renovable.checked})">Consultar</button>
+    
+        <section id="results">
+            <div class="client">
+                <div>CNPJ</div>
+                <div>Razão Social</div>
+                <div>UF</div>
+                <div>Município</div>
+                <div>Apto a Renovar?</div>
+                <div>Tempo restante para renovar</div>
+            </div>
+            <div *ngFor="let result of results" class="client">
+                <div #cnpj>{{result.cnpj}}</div>
+                <div>{{result.name}}</div>
+                <div>{{result.state}}</div>
+                <div>{{result.city}}</div>
+                <div>{{result.can_renovate==1? 'Sim' : 'Não'}}</div>
+                <div>{{result.remaining_to_renovate}} {{result.remaining_to_renovate==1? 'mês' : 'meses'}}</div>
+                <span (click)="oldShow(actions)">➕</span>
+                <div class="actions hidden" #actions>
+                    <a href="/propostas/{{result.cnpj}}"><div class="proposals">📝</div></a>
+                    <div class="acesses" (click)="oldShow(accessBox); findAccess({client_id:accessId.innerHTML})">🗝️ <span class="hidden" #accessId>{{result.id}}</span></div>
+                    <div class="lines" >📱</div>
+                    <a href="/vendas/{{result.cnpj}}"><div class="sales" >💸</div></a>
+                </div>
+            </div>
+        </section>
+    </div>
+
+    <div class="renovations tab hidden" #renovations>
+        <form>
+            <div>
+                <label for="uf">UF</label>
+                <select id="uf" #renUf>
+                    <option *ngFor="let state of states">{{state.acronym}}</option>
+                </select>
+            </div>
+            <div>
+                <label for="city">Cidade</label>
+                <input id="city" type="text" #renCity>
+            </div>
+            <div>
+                <label for="to-renovate">Meses Restantes para Renovar</label>
+                <input id="to-renovate" type="number" #toRenovate>
+            </div>
+        </form>
+        <button (click)="find('clients/find',{city:renCity.value,state:renUf.value,remaining_to_renovate:toRenovate.value})">Consultar</button>
+    
+        <section id="results">
+            <div class="client">
+                <div>CNPJ</div>
+                <div>Razão Social</div>
+                <div>UF</div>
+                <div>Município</div>
+                <div>Apto a Renovar?</div>
+                <div>Tempo restante para renovar</div>
+            </div>
+            <div *ngFor="let result of results" class="client">
+                <div #cnpj>{{result.cnpj}}</div>
+                <div>{{result.name}}</div>
+                <div>{{result.state}}</div>
+                <div>{{result.city}}</div>
+                <div>{{result.can_renovate==1? 'Sim' : 'Não'}}</div>
+                <div>{{result.remaining_to_renovate}} {{result.remaining_to_renovate==1? 'mês' : 'meses'}}</div>
+                <span (click)="oldShow(actions)">➕</span>
+                <div class="actions hidden" #actions>
+                    <a href="/propostas/{{result.cnpj}}"><div class="proposals">📝</div></a>
+                    <div class="acesses" (click)="show(accessBox); findAccess({client_id:accessId.innerHTML})">🗝️ <span class="hidden" #accessId>{{result.id}}</span></div>
+                    <div class="lines" >📱</div>
+                    <a href="/vendas/{{result.cnpj}}"><div class="sales" >💸</div></a>
+                </div>
+            </div>
+        </section>
+    </div>
 </section>
 <datalist id="client-list">
     <option *ngFor="let row of data" value="{{row.name}}"></option>
 </datalist>
 
-<div class="accessbox hidden" #access>
+<div class="accessbox hidden" #accessBox>
     <div class="access-title">
         <div>Acessos</div>
-        <div (click)="show(access)" class="closer">❌</div>
+        <div (click)="oldShow(accessBox)" class="closer">❌</div>
     </div>
     <div *ngIf="!currentAccess.length" class="access">Nenhum acesso registrado.</div>
+    <div *ngIf="currentAccess.length" class="access">
+        <div>Tipo de Acesso</div>
+        <div>Login</div>
+        <div>Senha</div>
+    </div>
     <div class="access" *ngFor="let access of currentAccess">
         <div>{{access.platform_name}}</div>
         <div>{{access.login}}</div>
         <div>{{access.password}}</div>
     </div>
+    <div class="access">
+        <div>
+            <select #accessNewType>
+                <option *ngFor="let platform of platforms">{{platform.name}}</option>
+            </select>
+        </div>
+        <div>
+            <input type="text" placeholder="Novo login" #accessNewLogin>
+        </div>
+        <div>
+            <input type="text" placeholder="Nova senha" #accessNewPassword>
+        </div>
+    </div>
+    <button type="button" (click)="addAccess({platform:accessNewType.value,client_id:currentAccessId.client_id,login:accessNewLogin.value,password:accessNewPassword.value})">Salvar</button>
 </div>

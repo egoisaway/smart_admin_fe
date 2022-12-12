@@ -1,3 +1,6 @@
+.tab{
+    transition: all .5s;
+}
 section{
     width: auto;
     height: auto;
@@ -28,6 +31,7 @@ section #pannels #options div{
 }
 section #pannels #options div:hover{
     background-color: #da291c;
+    cursor: pointer;
 }
 
 section form{
@@ -51,6 +55,7 @@ section form input{
 }
 section button{
     height: 50px;
+    width: 100%;
     border: none;
     background-color: lightgray;
     font-weight: bold;
@@ -102,11 +107,14 @@ section button:hover{
 .client div:nth-child(5) { grid-area: 1 / 5 / 2 / 6; }
 .client div:nth-child(5) { grid-area: 1 / 6 / 2 / 7; border-right: none; }
 .client div:nth-child(8) { grid-area: 2 / 1 / 3 / 8; }
+.client:not(:first-child){
+    transition: all .2s;
+}
 .client span {
     grid-area: 1 / 7 / 2 / 8;
     font-size: 50;
     font-weight: bold; cursor: pointer;
-    transition: all .1s;
+    transition: all .2s;
 }
 .client:not(:first-child):hover{ background-color: lightgray; }
 .client:not(:first-child):hover span{ font-size: 35px; }
@@ -119,11 +127,12 @@ section button:hover{
 }
 .showing{
     height: auto;
-    padding: 30px 0 20px 0;
+    padding: 70px 0;
 }
 .hidden{
-    height: 0;
+    height: 0px;
     padding: 0;
+    overflow: hidden;
 }
 .actions div{
     font-size: 30px;
@@ -145,6 +154,7 @@ section button:hover{
     z-index: 1;
     transition: all .1s;
     overflow: hidden;
+    padding: 0;
 
     display: flex;
     flex-direction: column;
@@ -155,8 +165,9 @@ section button:hover{
 }
 .accessbox .access-title{
     display: flex;
-    justify-content: space-around;
+    justify-content: space-between;
     font-size: 20px;
+    padding: 20px;
 }
 .accessbox .access{
     padding: 20px;
@@ -170,4 +181,11 @@ section button:hover{
 }
 .access:not(:nth-child(2)){
     border-top: 1px solid white;
+}
+.accessbox input, .accessbox button{
+    border: none;
+}
+.accessbox button{
+    padding: 10px 0px;
+    cursor: pointer;
 }

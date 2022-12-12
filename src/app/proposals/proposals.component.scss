@@ -45,6 +45,8 @@ section #title{
     color: white;
     font-size: 20px;
     padding: 20px 10px;
+    border: none;
+    border-bottom: 1px solid black;
 }
 #plans .plan:nth-child(2){
     position: sticky;
@@ -154,8 +156,86 @@ section #title{
     cursor: pointer;
 }
 
-// @media print{
-//     *:not(#generator){
-//         display: none;
-//     }
-// }
+@media print{
+    *{
+        display: none;
+    }
+
+    #generator,#generator *{
+        display: flex !important;
+    }
+    #generator{
+        position: absolute;
+        width: 95vw;
+        margin: 0 auto;
+    }
+    
+    #generator{
+        width: 100%;
+        height: fit-content;
+        background-color: white;
+        display: flex;
+        flex-direction: column;
+    }
+    .total, .linetitle{
+        display: grid;
+        grid-template-columns: 2fr repeat(4, 1fr);
+        grid-template-rows: 1fr;
+        grid-column-gap: 0px;
+        grid-row-gap: 0px;
+    }
+    .total{
+        border-top: 1px solid black;
+    }
+    .linetitle div:nth-child(1) { grid-area: 1 / 2 / 2 / 1; }
+    .total div:nth-child(1), .linetitle div:nth-child(2) { grid-area: 1 / 3 / 2 / 2; }
+    .total div:nth-child(2), .linetitle div:nth-child(3) { grid-area: 1 / 4 / 2 / 3; }
+    .total div:nth-child(3), .linetitle div:nth-child(4) { grid-area: 1 / 5 / 2 / 4; }
+    .total div:nth-child(4), .linetitle div:nth-child(5) { grid-area: 1 / 5 / 2 / 5; }
+    .total div:nth-child(3) { background-color: lightgreen; }
+    .total div:nth-child(4) { background-color: lightgreen; }
+    .total div, .linetitle div{
+        padding: 10px 20px;
+        text-align: left;
+    }
+
+    #generator-content{
+        height: 100%;
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+    }
+
+    #generator-content .line{
+        width: 100%;
+        height: auto;
+        display: grid;
+        grid-template-columns: 2fr repeat(4, 1fr);
+        grid-template-rows: 1fr;
+        grid-column-gap: 0px;
+        grid-row-gap: 0px;
+    }
+
+    #generator-content .line div:nth-child(1) { grid-area: 1 / 2 / 2 / 1; }
+    #generator-content .line div:nth-child(2) { grid-area: 1 / 3 / 2 / 2; }
+    #generator-content .line div:nth-child(3) { grid-area: 1 / 4 / 2 / 3; }
+    #generator-content .line div:nth-child(4) { grid-area: 1 / 5 / 2 / 4; }
+    #generator-content .line div:nth-child(5) { grid-area: 1 / 5 / 2 / 5; }
+
+    .line div{
+        height: auto;
+        padding: 10px 20px;
+        text-align: center;
+        display: flex;
+        align-items: center;
+    }
+    .line div span{
+        font-size: 12px;
+        margin-right: 5px;
+    }
+    .line div input{
+        width: 90%;
+        height: 20px;
+        border: none;
+    }
+}
