@@ -41,7 +41,7 @@
                 <input id="dateend" type="date" #dateend>
             </div>
         </form>
-        <button (click)="find('sales/find',{client_cnpj:cnpj.value,client_name:name.value,person_name:person.value,date_start:datestart.value,date_end:dateend.value})">Consultar</button>
+        <button (click)="find('sales/find',{client_cnpj:cnpj.value,client_name:name.value,person_name:person.value,date_start:datestart.value,date_end:dateend.value,status:status.value})">Consultar</button>
     
         <section id="results">
             <div class="sale">
