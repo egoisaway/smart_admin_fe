@@ -4,7 +4,7 @@
         <div id="options">
             <div (click)="show(consult);hide(renovations)">Consultar Carteira</div>
             <div (click)="show(renovations);hide(consult)">Buscar Renovações</div>
-            <div>Consultar Linhas</div>
+            <!-- <div>Consultar Linhas</div> -->
         </div>
     </div>
     <div class="consult tab showing" #consult>
@@ -85,21 +85,23 @@
         <button (click)="find('clients/find',{city:renCity.value,state:renUf.value,remaining_to_renovate:toRenovate.value})">Consultar</button>
     
         <section id="results">
-            <div class="client">
+            <div class="ren-client">
                 <div>CNPJ</div>
                 <div>Razão Social</div>
                 <div>UF</div>
                 <div>Município</div>
                 <div>Apto a Renovar?</div>
                 <div>Tempo restante para renovar</div>
+                <div>Data de Renovação</div>
             </div>
-            <div *ngFor="let result of results" class="client">
+            <div *ngFor="let result of results" class="ren-client">
                 <div #cnpj>{{result.cnpj}}</div>
                 <div>{{result.name}}</div>
                 <div>{{result.state}}</div>
                 <div>{{result.city}}</div>
-                <div>{{result.can_renovate==1? 'Sim' : 'Não'}}</div>
                 <div>{{result.remaining_to_renovate}} {{result.remaining_to_renovate==1? 'mês' : 'meses'}}</div>
+                <div>{{result.can_renovate==1? 'Sim' : 'Não'}}</div>
+                <div>{{result.will_renovate.slice(0,10)}}</div>
                 <span (click)="oldShow(actions)">➕</span>
                 <div class="actions hidden" #actions>
                     <a href="/propostas/{{result.cnpj}}"><div class="proposals">📝</div></a>

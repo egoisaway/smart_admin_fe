@@ -189,3 +189,53 @@ section button:hover{
     padding: 10px 0px;
     cursor: pointer;
 }
+
+.ren-client{
+    background-color: white;
+    display: grid;
+    grid-template-columns: repeat(7, 1fr) 0.1fr;
+    grid-template-rows: 1fr;
+    grid-column-gap: 0px;
+    grid-row-gap: 0px;
+    padding: 25px;
+    margin: 5px 0;
+    height: fit-content;
+}
+.ren-client:nth-child(1){
+    position: sticky;
+    top: 0;
+    margin-top: 0;
+    background-color: rgba($color: #000000, $alpha: 0.7);
+    backdrop-filter: blur(10px);
+    color: white;
+}
+.ren-client div{
+    text-align: center;
+    border-left: 1px solid black;
+}
+.ren-client div:nth-child(1) { grid-area: 1 / 1 / 2 / 2; border-left: none; }
+.ren-client div:nth-child(2) { grid-area: 1 / 2 / 2 / 3; }
+.ren-client div:nth-child(3) { grid-area: 1 / 3 / 2 / 4; }
+.ren-client div:nth-child(4) { grid-area: 1 / 4 / 2 / 5; }
+.ren-client div:nth-child(5) { grid-area: 1 / 5 / 2 / 6; }
+.ren-client div:nth-child(5) { grid-area: 1 / 6 / 2 / 7; }
+.ren-client div:nth-child(8) { grid-area: 1 / 7 / 2 / 8; border-right: none; }
+.ren-client:not(:first-child){
+    transition: all .2s;
+}
+.ren-client span {
+    grid-area: 1 / 8 / 2 / 9;
+    font-size: 50;
+    font-weight: bold; cursor: pointer;
+    transition: all .2s;
+}
+.ren-client:not(:first-child):hover{ background-color: lightgray; }
+.ren-client:not(:first-child):hover span{ font-size: 35px; }
+
+.ren-client .actions{
+    grid-area: 2/1/3/8;
+
+    div{
+        border: none;
+    }
+}
