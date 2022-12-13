@@ -15,6 +15,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { MatDatepickerModule } from '@angular/material/datepicker';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatNativeDateModule } from '@angular/material/core';
+import { ReportsModule } from './reports/reports.module';
 
 @NgModule({
   declarations: [
@@ -30,9 +31,11 @@ import { MatNativeDateModule } from '@angular/material/core';
     WalletModule,
     ProposalsModule,
     SalesModule,
+    ReportsModule,
     BrowserAnimationsModule
   ],
   providers: [],
   bootstrap: [AppComponent]
 })
-export class AppModule { }
+export class AppModule {
+}

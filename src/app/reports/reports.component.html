@@ -1,36 +1,6 @@
 <section>
     <div id="pannels">
-        <div id="title">{{title}}</div>
+        <div id="title">Relatórios</div>
     </div>
-    <form>
-        <div>
-            <label for="cnpj">CNPJ</label>
-            <input id="cnpj" type="text">
-        </div>
-        <div>
-            <label for="name">Razão Social</label>
-            <input id="name" type="text">
-        </div>
-        <div>
-            <label for="city">Cidade</label>
-            <input id="city" type="text">
-        </div>
-        <div>
-            <label for="uf">UF</label>
-            <select id="uf">
-                <option *ngFor="let state of states">{{state.acronym}}</option>
-            </select>
-        </div>
-        <div>
-            <label for="renovation">Data da Renovação</label>
-            <input id="renovation" type="date">
-        </div>
-    </form>
-    <button>Consultar</button>
-
-    <section id="results">
-        <div *ngFor="let sale of sales" class="client">
-            <div>{{sale}}</div>
-        </div>
-    </section>
+    <app-stock-chart></app-stock-chart>
 </section>
