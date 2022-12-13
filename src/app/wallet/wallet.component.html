@@ -99,8 +99,8 @@
                 <div>{{result.name}}</div>
                 <div>{{result.state}}</div>
                 <div>{{result.city}}</div>
-                <div>{{result.remaining_to_renovate}} {{result.remaining_to_renovate==1? 'mês' : 'meses'}}</div>
                 <div>{{result.can_renovate==1? 'Sim' : 'Não'}}</div>
+                <div>{{result.remaining_to_renovate}} {{result.remaining_to_renovate==1? 'mês' : 'meses'}}</div>
                 <div>{{result.will_renovate.slice(0,10)}}</div>
                 <span (click)="oldShow(actions)">➕</span>
                 <div class="actions hidden" #actions>
