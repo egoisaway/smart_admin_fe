@@ -53,7 +53,10 @@
                 <div>{{result.state}}</div>
                 <div>{{result.city}}</div>
                 <div>{{result.can_renovate==1? 'Sim' : 'Não'}}</div>
-                <div>{{result.remaining_to_renovate}} {{result.remaining_to_renovate==1? 'mês' : 'meses'}}</div>
+                <div>
+                    {{result.remaining_to_renovate>0 ? (result.remaining_to_renovate==1? result.remaining_to_renovate+' mês' : result.remaining_to_renovate+' meses') :
+                    (result.remaining_to_renovate==0 ? 'Menos de um mês!' : (result.remaining_to_renovate==-1 ? 'Está no mês de renovação' : 'Já se pasaram '+(result.remaining_to_renovate*-1)+' meses da renovação'))}}
+                </div>
                 <span (click)="oldShow(actions)">➕</span>
                 <div class="actions hidden" #actions>
                     <a href="/propostas/{{result.cnpj}}"><div class="proposals">📝</div></a>
@@ -100,7 +103,10 @@
                 <div>{{result.state}}</div>
                 <div>{{result.city}}</div>
                 <div>{{result.can_renovate==1? 'Sim' : 'Não'}}</div>
-                <div>{{result.remaining_to_renovate}} {{result.remaining_to_renovate==1? 'mês' : 'meses'}}</div>
+                <div>
+                    {{result.remaining_to_renovate>0 ? (result.remaining_to_renovate==1? result.remaining_to_renovate+' mês' : result.remaining_to_renovate+' meses') :
+                    (result.remaining_to_renovate==0 ? 'Menos de um mês!' : (result.remaining_to_renovate==-1 ? 'Está no mês de renovação' : 'Já se pasaram '+(result.remaining_to_renovate*-1)+' meses da renovação'))}}
+                </div>
                 <div>{{result.will_renovate.slice(0,10)}}</div>
                 <span (click)="oldShow(actions)">➕</span>
                 <div class="actions hidden" #actions>

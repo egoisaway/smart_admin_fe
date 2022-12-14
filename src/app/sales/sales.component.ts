@@ -67,9 +67,6 @@ export class SalesComponent {
 
     return formattedDate
   }
-  // makeDateRangePicker(){
-  //   $('input[name="dates"]').daterangepicker();
-  // }
 
   find(route:any,params:any):any{
     if(params.client_cnpj=="") delete params.client_cnpj
