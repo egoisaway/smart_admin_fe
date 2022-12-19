@@ -71,21 +71,25 @@
     <div class="renovations tab hidden" #renovations>
         <form>
             <div>
-                <label for="uf">UF</label>
-                <select id="uf" #renUf>
+                <label for="ren-uf">UF</label>
+                <select id="ren-uf" #renUf>
                     <option *ngFor="let state of states">{{state.acronym}}</option>
                 </select>
             </div>
             <div>
-                <label for="city">Cidade</label>
-                <input id="city" type="text" #renCity>
+                <label for="ren-city">Cidade</label>
+                <input id="ren-city" type="text" #renCity>
             </div>
             <div>
-                <label for="to-renovate">Meses Restantes para Renovar</label>
-                <input id="to-renovate" type="number" #toRenovate>
+                <label for="ren-to-renovate">Meses Restantes para Renovar</label>
+                <input id="ren-to-renovate" type="number" #toRenovate>
+            </div>
+            <div>
+                <label for="ren-renovable">Apto a Renovar</label>
+                <input id="ren-renovable" type="checkbox" #renRenovable>
             </div>
         </form>
-        <button (click)="find('clients/find',{city:renCity.value,state:renUf.value,remaining_to_renovate:toRenovate.value})">Consultar</button>
+        <button (click)="find('clients/find',{city:renCity.value,state:renUf.value,remaining_to_renovate:toRenovate.value,can_renovate:renRenovable.checked})">Consultar</button>
     
         <section id="results">
             <div class="ren-client">
